@@ -9,9 +9,9 @@ module "vpc" {
   name = "my-vpc"
   cidr = "192.168.0.0/16"
 
-  azs            = ["us-east-1a"]
+  azs            = ["us-east-1a","us-east-1b"]
   public_subnets = ["192.168.4.0/24", "192.168.5.0/24", "192.168.6.0/24"]
-  private_subnets= ["192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24"]
+  private_subnets= ["192.168.1.0/24", "192.168.8.0/24", "192.168.3.0/24"]
 
   enable_dns_hostnames = true
   enable_nat_gateway = true
@@ -60,4 +60,3 @@ module "eks" {
     Terraform   = "true"
   }
 }
-
