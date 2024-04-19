@@ -24,8 +24,8 @@ jobs:
      - name: terraform deployment
        run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && terraform apply  -auto-approve
      - name: Terraform apply deployment
-       run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && kubectl apply -f deployment.yaml
+       run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && sudo kubectl apply -f deployment.yaml
      - name: Terraform apply Service
-       run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && kubectl apply -f svc.yaml       
+       run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && sudo kubectl apply -f svc.yaml       
 
      
