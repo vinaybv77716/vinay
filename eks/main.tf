@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-#creating vpc
+#crea vpc
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
