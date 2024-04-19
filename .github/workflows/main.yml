@@ -1,0 +1,29 @@
+name: CI
+
+on: [push]
+
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+     - name: Check out the repo
+       run: rm -rf vinay && git clone https://github.com/vinaybv77716/vinay.git
+     - name: build docker image and push to ecr repo
+       run: |
+          sudo apt update
+          sudo chown $USER /var/run/docker.sock
+       env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+     - name: terraform initialization 
+       run: cd /eks && terraform init 
+     - name: terraform deployment
+       run: cd /eks && terraform apply  -auto-approve
+     - name: Terraform apply deployment
+       run: cd /eks && kubectl apply -f deployment.yaml
+     - name: Terraform apply Service
+       run: cd /eks && kubectl apply -f svc.yaml       
+
+     
