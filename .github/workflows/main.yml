@@ -20,12 +20,12 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
      - name: terraform initialization 
-       run: cd /vinay/eks && terraform init 
+       run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && terraform init 
      - name: terraform deployment
-       run: cd /vinay/eks && terraform apply  -auto-approve
+       run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && terraform apply  -auto-approve
      - name: Terraform apply deployment
-       run: cd /vinay/eks && kubectl apply -f deployment.yaml
+       run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && kubectl apply -f deployment.yaml
      - name: Terraform apply Service
-       run: cd /vinay/eks && kubectl apply -f svc.yaml       
+       run: cd /home/ubuntu/actions-runner/_work/vinay/vinay/vinay/eks && kubectl apply -f svc.yaml       
 
      
