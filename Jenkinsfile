@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     environment {
@@ -8,16 +9,14 @@ pipeline {
     stages {
         stage('Checkout SCM'){
             steps{
-                script{
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/gauri17-pro/terraform-jenkins-eks.git']])
-                }
+               sh 'pwd'
             }
         }
         stage('Initializing Terraform'){
             steps{
                 script{
-                    dir('EKS'){
-                        sh 'terraform init'
+                    dir('eks'){
+                        sh 'terraform destroy --auto-approve'
                     }
                 }
             }
@@ -25,7 +24,7 @@ pipeline {
         stage('Formatting Terraform Code'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('eks'){
                         sh 'terraform fmt'
                     }
                 }
@@ -34,7 +33,7 @@ pipeline {
         stage('Validating Terraform'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('eks'){
                         sh 'terraform validate'
                     }
                 }
@@ -43,7 +42,7 @@ pipeline {
         stage('Previewing the Infra using Terraform'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('eks'){
                         sh 'terraform plan'
                     }
                 }
@@ -52,8 +51,9 @@ pipeline {
         stage('Creating/Destroying an EKS Cluster'){
             steps{
                 script{
-                    dir('EKS') {
-                        sh 'terraform apply --auto-approve'
+                    dir('eks') {
+                    #############################   give your access key and secret acce key here
+                         sh 'terraform apply '
                     }
                 }
             }
@@ -62,7 +62,7 @@ pipeline {
             steps{
                 script{
                     dir('eks') {
-                        sh 'aws eks update-kubeconfig --name my-eks-cluster'
+                        sh 'aws eks update-kubeconfig --name my-eks-cluster-1'
                         sh 'kubectl apply -f deployment.yaml'
                         sh 'kubectl apply -f svc.yaml'
                     }
